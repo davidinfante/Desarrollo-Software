@@ -11,7 +11,6 @@ public class Reloj extends Thread {
 	}
 	
 	public void run() {
-		
 		while(ejecutando) {
 			controlVelocidad.conducir();
 		}

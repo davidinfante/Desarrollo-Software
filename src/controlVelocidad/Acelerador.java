@@ -2,12 +2,12 @@ package controlVelocidad;
 
 public class Acelerador {
 
-	private boolean acelerando;
+	//private boolean acelerando;
 	private Eje eje;
 	private final int aceleracion = 1;
 	
 	public Acelerador(Eje eje) {
-		acelerando = false;
+		//acelerando = false;
 		this.eje = eje;
 	}
 	
@@ -17,7 +17,7 @@ public class Acelerador {
 	
 	// public double actualizar()
 	
-	public void soltar() {
+	/*public void soltar() {
 		acelerando = false;
 	}
 	
@@ -27,5 +27,5 @@ public class Acelerador {
 	
 	public boolean getAcelerando() {
 		return acelerando;
-	}
+	}*/
 }

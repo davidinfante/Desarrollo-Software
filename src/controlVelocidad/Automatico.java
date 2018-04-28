@@ -2,10 +2,10 @@ package controlVelocidad;
 
 public class Automatico {
 	
-	Acelerador acelerador;
-	Freno freno;
-	Registro registro;
-	Eje eje;
+	private Acelerador acelerador;
+	private Freno freno;
+	private Registro registro;
+	private Eje eje;
 	
 	public Automatico(Acelerador acelerador, Freno freno, Registro registro, Eje eje) {
 		this.acelerador = acelerador;

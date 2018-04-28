@@ -16,7 +16,7 @@ public class Eje {
 	public void variarRPM(int cantidad) { //synchronized
 		rpm += cantidad;
 		
-		if(rpm < 0) {
+		if (rpm < 0) {
 			rpm = 0;
 		}
 		else if (rpm > MAXRPM) {

@@ -34,8 +34,7 @@ public class ControlVelocidad {
 			switch (palanca.getEstado()) {
 			
 				case PARADO:	
-					if(freno.getFrenando())
-						freno.frenar();
+					if(freno.getFrenando())	freno.frenar();
 					break;
 					
 				case ACELERANDO:
@@ -70,4 +69,15 @@ public class ControlVelocidad {
 		return registro.getVelocidadConstante();
 	}
 	
+	public void cambiarEstadoMotor() {
+		this.motor.cambiarEstado();
+	}
+	
+	public void cambiarEstadoFreno() {
+		this.freno.cambiarEstadoFreno();
+	}
+	
+	public boolean getFrenando() {
+		return this.freno.getFrenando();
+	}
 }

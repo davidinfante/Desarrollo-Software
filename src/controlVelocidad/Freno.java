@@ -17,12 +17,8 @@ public class Freno {
 	
 	//public double actualizar()
 	
-	public void soltar() {
-		frenando = false;
-	}
-	
-	public void pisar() {
-		frenando = true;
+	public void cambiarEstadoFreno() {
+		frenando = !frenando;
 	}
 	
 	public boolean getFrenando() {
