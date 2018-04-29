@@ -5,7 +5,7 @@ public class Motor {
 	private boolean estado;
 	
 	public Motor() {
-		estado = true;
+		estado = false;
 	}
 	
 	public boolean getEstado() {

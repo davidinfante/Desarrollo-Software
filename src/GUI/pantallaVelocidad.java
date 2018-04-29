@@ -103,7 +103,7 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	// Acción Botón onOff
 	private void onOffActionPerformed(java.awt.event.ActionEvent evt) {
 		if (onOff.isSelected()) {
-			//controlVelocidad.cambiarEstadoMotor();
+			controlVelocidad.cambiarEstadoMotor();
 		} else {
 			controlVelocidad.cambiarEstadoMotor();
 		}
@@ -119,7 +119,7 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 			controlVelocidad.cambiarEstadoFreno();
 			controlVelocidad.moverPalanca(Estado.PARADO);
 		} else {
-			if (!frenar.isSelected() && controlVelocidad.getFrenando()) controlVelocidad.cambiarEstadoFreno();
+			controlVelocidad.cambiarEstadoFreno();
 		}
 	}
 	
@@ -185,11 +185,11 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	
 	public void run() {
 		while (true) {
-			velocidad.setText(String.valueOf((int) controlVelocidad.getVelocidad()));
+			velocidad.setText(String.valueOf((int) controlVelocidad.getVelocidad())+" km/h");/*
 			if (controlVelocidad.getVelocidad() == 0 && controlVelocidad.getFrenando()) {
 				frenar.setSelected(false);
 				controlVelocidad.cambiarEstadoFreno();
-			}
+			}*/
 		}
 	}
 	

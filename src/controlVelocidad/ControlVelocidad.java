@@ -29,31 +29,38 @@ public class ControlVelocidad {
 	
 	public void conducir() {
 		
+		System.out.println(reloj.getTiempoTotal());
+	
 		if(motor.getEstado()) {
 			
 			switch (palanca.getEstado()) {
 			
 				case PARADO:	
-					if(freno.getFrenando())	freno.frenar();
+					if(freno.getFrenando())	freno.frenar("brusco");
+					else freno.frenar("suave");
+					eje.calcularVelocidad();
 					break;
 					
 				case ACELERANDO:
 					acelerador.acelerar();
+					eje.calcularVelocidad();
 					break;
 					
 				case MANTENIENDO:
 					registro.registrarVelocidad();
 					automatico.mantenerVelocidad();
+					eje.calcularVelocidad();
 					break;
 					
 				case REINICIANDO:
 					automatico.mantenerVelocidad();
+					eje.calcularVelocidad();
 					break;
 			}
 		}
 		else {
-			
-			freno.frenar();
+			freno.frenar("suave");
+			eje.calcularVelocidad();
 		}
 	}
 	
@@ -62,12 +69,13 @@ public class ControlVelocidad {
 	}
 	
 	public int getVelocidad() {
+		//System.out.println(eje.getVelocidad());
 		return eje.getVelocidad();
 	}
-	
+	/*
 	public int getVelocidadConstante() {
 		return registro.getVelocidadConstante();
-	}
+	}*/
 	
 	public void cambiarEstadoMotor() {
 		this.motor.cambiarEstado();
@@ -76,8 +84,8 @@ public class ControlVelocidad {
 	public void cambiarEstadoFreno() {
 		this.freno.cambiarEstadoFreno();
 	}
-	
+	/*
 	public boolean getFrenando() {
 		return this.freno.getFrenando();
-	}
+	}*/
 }

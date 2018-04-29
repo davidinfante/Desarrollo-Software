@@ -16,7 +16,7 @@ public class Automatico {
 	
 	public void mantenerVelocidad() {
 		if(eje.getVelocidad() > registro.getVelocidadConstante())
-			freno.frenar();
+			freno.frenar("brusco");
 		else if (eje.getVelocidad() < registro.getVelocidadConstante())
 			acelerador.acelerar();
 	}

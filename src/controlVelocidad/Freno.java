@@ -4,18 +4,21 @@ public class Freno {
 
 	private boolean frenando;
 	private Eje eje;
-	private final int desaceleracion = -1;
+	private final double desaceleracion = -0.001;
 	
 	public Freno(Eje eje) {
 		frenando = false  ;
 		this.eje = eje;
 	}
 	
-	public void frenar() {
-		eje.variarRPM(desaceleracion);
+	public void frenar(String tipo) {
+		double desaceleracion_f = 0;
+		if(tipo == "suave")
+			desaceleracion_f = -0.0001;
+		else if(tipo == "brusco")
+			desaceleracion_f = desaceleracion;
+		eje.variarRPM(desaceleracion_f);
 	}
-	
-	//public double actualizar()
 	
 	public void cambiarEstadoFreno() {
 		frenando = !frenando;
