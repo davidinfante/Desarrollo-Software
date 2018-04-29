@@ -1,14 +1,15 @@
-package controlVelocidad;
+package monitorizacion;
 
-public class Reloj extends Thread {
+
+public class RelojMonitor extends Thread {
 
 	private int intervalo;
-	private ControlVelocidad controlVelocidad;
+	private Monitor monitor;
 	private boolean ejecutando = true;
 	private volatile double tiempo_total;
 	
-	public Reloj(ControlVelocidad controlVelocidad, int intervalo) {
-		this.controlVelocidad = controlVelocidad;
+	public RelojMonitor(Monitor monitor, int intervalo) {
+		this.monitor = monitor;
 		ejecutando = true;
 		tiempo_total = 0.0;
 		this.intervalo = intervalo;
@@ -24,7 +25,7 @@ public class Reloj extends Thread {
 				e.printStackTrace();
 				ejecutando = false;
 			}
-			controlVelocidad.conducir();
+			monitor.monitorizar();
 		}
 	}
 	

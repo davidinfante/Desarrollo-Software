@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 
 import controlVelocidad.ControlVelocidad;
 import controlVelocidad.Estado;
+import monitorizacion.Monitor;
 
 public class pantallaVelocidad extends JFrame implements Runnable {
 
@@ -28,13 +29,14 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	private JRadioButton mantener;
 	private JRadioButton reiniciar;
 	private ControlVelocidad controlVelocidad;
+	private Monitor monitor;
 	public Thread thr;
 	// Atributos de tiempo
 	public static double startTime;
 	public static double endTime;
 	public static double totalTime;
 	
-	public pantallaVelocidad(ControlVelocidad controlVelocidad) {
+	public pantallaVelocidad(ControlVelocidad controlVelocidad, Monitor monitor) {
 		setSize(750, 500);
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
@@ -98,19 +100,19 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 		
 		
 		this.controlVelocidad = controlVelocidad;
+		this.monitor = monitor;
 		thr = new Thread(this);
 	}
 	
 	// Acción Botón onOff
 	private void onOffActionPerformed(java.awt.event.ActionEvent evt) {
-		if (onOff.isSelected()) {
-			controlVelocidad.cambiarEstadoMotor();
-		} else {
-			controlVelocidad.cambiarEstadoMotor();
-			
-			endTime = System.nanoTime();
-			totalTime = (double) (endTime - startTime)/1000000000.0; //Nanosegundos a segundos
-			controlVelocidad.informacionEje(totalTime);
+		controlVelocidad.cambiarEstadoMotor();
+		if (!onOff.isSelected()) {
+			parar.setSelected(true);
+			acelerar.setSelected(false);
+			mantener.setSelected(false);
+			reiniciar.setSelected(false);
+			controlVelocidad.moverPalanca(Estado.PARADO);
 		}
 	}
 	
@@ -191,6 +193,16 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	public void run() {
 		while (true) {
 			velocidad.setText("Velocidad: " + String.valueOf((int) controlVelocidad.getVelocidad())+" km/h");
+			//System.out.println("Velocidad media: " + monitor.getVelocidadMedia());
+			//System.out.println("Consumo medio: " + monitor.getConsumoMedio());
+			//System.out.println(controlVelocidad.getVueltasTotales());
+			System.out.println(monitor.getNivelDeposito());
+			if(monitor.notificarAceite())
+				System.out.println("LOCO EL ACEITE XD");
+			else if (monitor.notificarPastillas())
+				System.out.println("LOCO LAS PASTILLAS XD");
+			else if (monitor.notificarRevision())
+				System.out.println("LOCO LA REVISION XD");
 		}
 	}
 	
@@ -198,13 +210,15 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				ControlVelocidad controlVelocidad = new ControlVelocidad();
-				pantallaVelocidad display = new pantallaVelocidad(controlVelocidad);
+				ControlVelocidad controlVelocidad = new ControlVelocidad(500);
+				Monitor monitor = new Monitor(controlVelocidad, 500);
+				pantallaVelocidad display = new pantallaVelocidad(controlVelocidad, monitor);
 				display.setVisible(true);
 				
 				startTime = System.nanoTime();
 				
 				controlVelocidad.start();
+				monitor.start();
 				display.thr.start();
 			}
 		});

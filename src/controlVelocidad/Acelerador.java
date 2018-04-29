@@ -4,7 +4,7 @@ public class Acelerador {
 
 	//private boolean acelerando;
 	private Eje eje;
-	private final double aceleracion = 0.001;
+	private final double aceleracion = 100;
 	
 	public Acelerador(Eje eje) {
 		//acelerando = false;
@@ -12,7 +12,7 @@ public class Acelerador {
 	}
 	
 	public void acelerar() {
-		eje.variarRPM(aceleracion);
+		eje.variarVueltas(aceleracion);
 	}
 	
 	// public double actualizar()

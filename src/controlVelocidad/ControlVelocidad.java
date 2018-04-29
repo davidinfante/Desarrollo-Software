@@ -12,15 +12,15 @@ public class ControlVelocidad {
 	private Reloj reloj;
 
 	
-	public ControlVelocidad() {
-		eje =  new Eje();
+	public ControlVelocidad(int intervalo) {
+		eje =  new Eje(intervalo);
 		acelerador = new Acelerador(eje);
 		freno = new Freno(eje);
 		registro = new Registro(eje);
 		automatico = new Automatico(acelerador, freno, registro, eje);
 		motor = new Motor();
 		palanca = new Palanca();
-		reloj = new Reloj(this);
+		reloj = new Reloj(this, intervalo);
 	}
 	
 	public void start() {
@@ -37,28 +37,33 @@ public class ControlVelocidad {
 					if(freno.getFrenando())	freno.frenar("brusco");
 					else freno.frenar("suave");
 					eje.calcularVelocidad();
+					eje.calcularDistancia();
 					break;
 					
 				case ACELERANDO:
 					acelerador.acelerar();
 					eje.calcularVelocidad();
+					eje.calcularDistancia();
 					break;
 					
 				case MANTENIENDO:
 					registro.registrarVelocidad();
 					automatico.mantenerVelocidad();
 					eje.calcularVelocidad();
+					eje.calcularDistancia();
 					break;
 					
 				case REINICIANDO:
 					automatico.mantenerVelocidad();
 					eje.calcularVelocidad();
+					eje.calcularDistancia();
 					break;
 			}
 		}
 		else {
 			freno.frenar("suave");
 			eje.calcularVelocidad();
+			eje.calcularDistancia();
 		}
 	}
 	
@@ -70,6 +75,10 @@ public class ControlVelocidad {
 		return eje.getVelocidad();
 	}
 	
+	public double getDistancia() {
+		return eje.getDistancia();
+	}
+	
 	public void cambiarEstadoMotor() {
 		this.motor.cambiarEstado();
 	}
@@ -78,9 +87,12 @@ public class ControlVelocidad {
 		this.freno.cambiarEstadoFreno();
 	}
 	
-	public void informacionEje(double tiempo) {
-		eje.calcularDistancia(tiempo);
-		eje.calcularVueltas();
-		System.out.println("La distancia recorrida es: " + eje.getDistancia() + " km, las vueltas del eje son: " + eje.getVueltas());
+	public int getVueltasTotales() {
+		return eje.getVueltas();
 	}
+	
+	public Eje getEje() {
+		return eje;
+	}
+	
 }
