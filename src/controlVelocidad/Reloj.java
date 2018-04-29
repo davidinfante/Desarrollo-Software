@@ -15,12 +15,6 @@ public class Reloj extends Thread {
 	
 	public void run() {
 		while(ejecutando) {
-			try {
-				Thread.sleep(INTERVALO);
-				tiempo_total += INTERVALO;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			controlVelocidad.conducir();
 		}
 	}

@@ -28,8 +28,6 @@ public class ControlVelocidad {
 	}
 	
 	public void conducir() {
-		
-		System.out.println(reloj.getTiempoTotal());
 	
 		if(motor.getEstado()) {
 			
@@ -69,13 +67,8 @@ public class ControlVelocidad {
 	}
 	
 	public int getVelocidad() {
-		//System.out.println(eje.getVelocidad());
 		return eje.getVelocidad();
 	}
-	/*
-	public int getVelocidadConstante() {
-		return registro.getVelocidadConstante();
-	}*/
 	
 	public void cambiarEstadoMotor() {
 		this.motor.cambiarEstado();
@@ -84,8 +77,10 @@ public class ControlVelocidad {
 	public void cambiarEstadoFreno() {
 		this.freno.cambiarEstadoFreno();
 	}
-	/*
-	public boolean getFrenando() {
-		return this.freno.getFrenando();
-	}*/
+	
+	public void informacionEje(double tiempo) {
+		eje.calcularDistancia(tiempo);
+		eje.calcularVueltas();
+		System.out.println("La distancia recorrida es: " + eje.getDistancia() + " km, las vueltas del eje son: " + eje.getVueltas());
+	}
 }

@@ -19,7 +19,6 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel velocidad;
-	private JLabel velocidadTxt;
 	private JPanel panel;
 	private JPanel panel2;
 	private JToggleButton onOff;
@@ -30,6 +29,10 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	private JRadioButton reiniciar;
 	private ControlVelocidad controlVelocidad;
 	public Thread thr;
+	// Atributos de tiempo
+	public static double startTime;
+	public static double endTime;
+	public static double totalTime;
 	
 	public pantallaVelocidad(ControlVelocidad controlVelocidad) {
 		setSize(750, 500);
@@ -37,7 +40,6 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 		panel.setLayout(new FlowLayout());
 		getContentPane().add(panel);
 		velocidad = new JLabel();
-		velocidadTxt = new JLabel("Velocidad: ");
 		
 		onOff = new JToggleButton("Encendido / Apagado", false);
 		onOff.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +83,6 @@ public class pantallaVelocidad extends JFrame implements Runnable {
             }
         });
 		
-		panel.add(velocidadTxt);
 		panel.add(velocidad);
 		panel.add(onOff);
 		panel.add(frenar);
@@ -106,6 +107,10 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 			controlVelocidad.cambiarEstadoMotor();
 		} else {
 			controlVelocidad.cambiarEstadoMotor();
+			
+			endTime = System.nanoTime();
+			totalTime = (double) (endTime - startTime)/1000000000.0; //Nanosegundos a segundos
+			controlVelocidad.informacionEje(totalTime);
 		}
 	}
 	
@@ -185,11 +190,7 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	
 	public void run() {
 		while (true) {
-			velocidad.setText(String.valueOf((int) controlVelocidad.getVelocidad())+" km/h");/*
-			if (controlVelocidad.getVelocidad() == 0 && controlVelocidad.getFrenando()) {
-				frenar.setSelected(false);
-				controlVelocidad.cambiarEstadoFreno();
-			}*/
+			velocidad.setText("Velocidad: " + String.valueOf((int) controlVelocidad.getVelocidad())+" km/h");
 		}
 	}
 	
@@ -198,9 +199,12 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 			@Override
 			public void run() {
 				ControlVelocidad controlVelocidad = new ControlVelocidad();
-				controlVelocidad.start();
 				pantallaVelocidad display = new pantallaVelocidad(controlVelocidad);
 				display.setVisible(true);
+				
+				startTime = System.nanoTime();
+				
+				controlVelocidad.start();
 				display.thr.start();
 			}
 		});
