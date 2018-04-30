@@ -4,7 +4,7 @@ public class Deposito {
 
 	private double nivel;
 	private final double TOPE = 500;
-	private final double CONST_CONSUMO = 0.0001;
+	private final double CONST_CONSUMO = 0.1;
 	
 	public Deposito() {
 		nivel = TOPE;

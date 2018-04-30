@@ -4,7 +4,7 @@ public class Acelerador {
 
 	//private boolean acelerando;
 	private Eje eje;
-	private final double aceleracion = 100;
+	private final double aceleracion = 0.1;
 	
 	public Acelerador(Eje eje) {
 		//acelerando = false;

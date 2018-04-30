@@ -2,17 +2,17 @@ package monitorizacion;
 
 public class ManejadorNotificaciones {
 
-	private int vueltas_aceite;
-	private int vueltas_pastillas;
-	private int vueltas_revision;
+	private double vueltas_aceite;
+	private double vueltas_pastillas;
+	private double vueltas_revision;
 	
-	private int vueltas_aceite_anteriores;
-	private int vueltas_pastillas_anteriores;
-	private int vueltas_revision_anteriores;
+	private double vueltas_aceite_anteriores;
+	private double vueltas_pastillas_anteriores;
+	private double vueltas_revision_anteriores;
 	
-	private final int LIMITE_ACEITE = 2000;//5000000;
-	private final int LIMITE_PASTILLAS = 4000;//100000000;
-	private final int LIMITE_REVISION = 8000;//1000000000;
+	private final double LIMITE_ACEITE = 5000000; //100
+	private final double LIMITE_PASTILLAS = 100000000; //150
+	private final double LIMITE_REVISION = 1000000000; //200
 	
 	public ManejadorNotificaciones() {
 		vueltas_aceite = 0;
@@ -23,7 +23,7 @@ public class ManejadorNotificaciones {
 		vueltas_revision_anteriores = 0;
 	}
 	
-	public void actualizar(int vueltas_totales) {
+	public void actualizar(double vueltas_totales) {
 		vueltas_aceite = vueltas_totales - vueltas_aceite_anteriores;
 		vueltas_pastillas = vueltas_totales - vueltas_pastillas_anteriores;
 		vueltas_revision = vueltas_totales - vueltas_revision_anteriores;
@@ -31,7 +31,6 @@ public class ManejadorNotificaciones {
 	
 	public boolean notificarAceite() {
 		if(vueltas_aceite >= LIMITE_ACEITE) {
-			vueltas_aceite_anteriores += LIMITE_ACEITE;
 			return true;
 		}
 		else
@@ -40,7 +39,6 @@ public class ManejadorNotificaciones {
 	
 	public boolean notificarPastillas() {
 		if(vueltas_pastillas >= LIMITE_PASTILLAS) {
-			vueltas_pastillas_anteriores += LIMITE_PASTILLAS;
 			return true;
 		}
 		else
@@ -49,7 +47,6 @@ public class ManejadorNotificaciones {
 	
 	public boolean notificarRevision() {
 		if(vueltas_revision >= LIMITE_REVISION) {
-			vueltas_revision_anteriores += LIMITE_REVISION;
 			return true;
 		}
 		else

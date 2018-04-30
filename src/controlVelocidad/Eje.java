@@ -2,20 +2,22 @@ package controlVelocidad;
 
 public class Eje {
 
-	private final double radio = 1; //metros
+	private final double radio = 0.5; //metros
 	private double vueltas;
-	private final int  MAXVUELTAS = 2000;
+	private final int  MAXVUELTAS = 4;
 	private int velocidad;
-	private double distancia_recorrida;
-	private int vueltas_totales;
+	private double distancia_total;
+	private double vueltas_totales;
 	private double intervalo;
+	private double distancia;
 	
 	
 	public Eje(int intervalo) {
 		vueltas = 0;
 		velocidad = 0;
-		distancia_recorrida = 0;
+		distancia_total = 0;
 		vueltas_totales = 0;
+		distancia = 0;
 		this.intervalo = intervalo/1000.0; //segundos
 	}
 	
@@ -30,19 +32,24 @@ public class Eje {
 		}
 	}
 	
-	synchronized public void calcularVelocidad() {
-		velocidad = (int) (vueltas*radio*60/1000); // km/h
+	synchronized public void actualizarParametros() {
 		calcularDistancia();
+		calcularVelocidad();
 		calcularVueltas();
+	}
+	
+	synchronized public void calcularVelocidad() {
+		velocidad = (int) ((distancia/intervalo)*3600/1000); // km/h
 	}
 	
 	
 	synchronized public void calcularDistancia() {
-		distancia_recorrida += (velocidad * (intervalo/3600) * 1000);
+		distancia = vueltas*(2*Math.PI*radio);//(velocidad * (intervalo/3600) * 1000);
+		distancia_total += distancia;
 	}
 	
 	synchronized public void calcularVueltas() {
-		vueltas_totales += (int) ((velocidad * (intervalo/3600) * 1000) / (2*Math.PI*radio));
+		vueltas_totales += vueltas;
 	}
 	
 	synchronized public int getVelocidad() {
@@ -50,10 +57,10 @@ public class Eje {
 	}
 	
 	synchronized public double getDistancia() {
-		return distancia_recorrida;
+		return distancia_total;
 	}
 	
-	synchronized public int getVueltas() {
+	synchronized public double getVueltas() {
 		return vueltas_totales;
 	}
 	

@@ -36,34 +36,29 @@ public class ControlVelocidad {
 				case PARADO:	
 					if(freno.getFrenando())	freno.frenar("brusco");
 					else freno.frenar("suave");
-					eje.calcularVelocidad();
-					eje.calcularDistancia();
+					eje.actualizarParametros();
 					break;
 					
 				case ACELERANDO:
 					acelerador.acelerar();
-					eje.calcularVelocidad();
-					eje.calcularDistancia();
+					eje.actualizarParametros();
 					break;
 					
 				case MANTENIENDO:
 					registro.registrarVelocidad();
 					automatico.mantenerVelocidad();
-					eje.calcularVelocidad();
-					eje.calcularDistancia();
+					eje.actualizarParametros();
 					break;
 					
 				case REINICIANDO:
 					automatico.mantenerVelocidad();
-					eje.calcularVelocidad();
-					eje.calcularDistancia();
+					eje.actualizarParametros();
 					break;
 			}
 		}
 		else {
 			freno.frenar("suave");
-			eje.calcularVelocidad();
-			eje.calcularDistancia();
+			eje.actualizarParametros();
 		}
 	}
 	
@@ -87,7 +82,7 @@ public class ControlVelocidad {
 		this.freno.cambiarEstadoFreno();
 	}
 	
-	public int getVueltasTotales() {
+	public double getVueltasTotales() {
 		return eje.getVueltas();
 	}
 	

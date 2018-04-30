@@ -1,10 +1,9 @@
 package GUI;
 
-import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -12,13 +11,14 @@ import javax.swing.JToggleButton;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import controlVelocidad.ControlVelocidad;
 import controlVelocidad.Estado;
 import monitorizacion.Monitor;
 
-public class pantallaVelocidad extends JFrame implements Runnable {
+public class pantallaVelocidad extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private static DecimalFormat df2 = new DecimalFormat(".##");
@@ -26,13 +26,20 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	private JLabel velocidad;
 	private JLabel combustible;
 	private JLabel vueltasDesde;
-	private JLabel alertas;
+	private JLabel alertaAceite;
+	private JLabel alertaPastillas;
+	private JLabel alertaRevision;
 	private JLabel distancia;
+	private JLabel velocidad_media;
+	private JLabel consumo_medio;
 	// Panels
 	private JPanel panel;
+	private JPanel panel_principal;
 	private JPanel panelEstados;
 	private JPanel panelCombustible;
 	private JPanel panelMecanico;
+	private JPanel panelInforMec;
+	private JPanel infor1;
 	// Buttons
 	private JToggleButton onOff;
 	private JToggleButton frenar;
@@ -54,21 +61,23 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 	
 	
 	public pantallaVelocidad(ControlVelocidad controlVelocidad, Monitor monitor) {
-		setTitle("Práctica 2 - Jose Fidel Ariza, David Infante");
-		setSize(1000, 450);
+		setSize(780, 400);
 		setBackground(Color.WHITE);
 		
 		panel = new JPanel();
-		panel.setLayout(new FlowLayout());
 		panel.setBackground(Color.WHITE);
-		getContentPane().add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		add(panel);
 		
 		velocidad = new JLabel();
 		combustible = new JLabel();
 		vueltasDesde = new JLabel("Vueltas desde: ");
-		alertas = new JLabel("Alerta: ");
-		alertas.setForeground(Color.RED);
+		alertaAceite = new JLabel("Alerta aceite: CORRECTO");
+		alertaPastillas = new JLabel("Alerta pastillas: CORRECTO");
+		alertaRevision = new JLabel("Alerta revisión: CORRECTO");
 		distancia = new JLabel();
+		velocidad_media = new JLabel();
+		consumo_medio = new JLabel();
 		
 		onOff = new JToggleButton("Encendido / Apagado", false);
 		onOff.addActionListener(new java.awt.event.ActionListener() {
@@ -165,10 +174,14 @@ public class pantallaVelocidad extends JFrame implements Runnable {
             }
         });
 		
-		panel.add(velocidad);
-		panel.add(onOff);
-		panel.add(frenar);
-		panel.add(distancia);
+		panel_principal = new JPanel();
+		panel_principal.setBackground(Color.WHITE);
+		
+		panel.add(panel_principal);
+		panel_principal.add(velocidad);
+		panel_principal.add(onOff);
+		panel_principal.add(frenar);
+		panel_principal.add(distancia);
 		
 		panelEstados = new JPanel();
 		panelEstados.setBackground(Color.WHITE);
@@ -200,8 +213,22 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 		panelMecanico.add(cambioPastillas);
 		panelMecanico.add(cambioRevision);
 		
-		panel.add(vueltasDesde);
-		panel.add(alertas);
+		panelInforMec = new JPanel();
+		panelInforMec.setBackground(Color.WHITE);
+		panelInforMec.setBorder(new TitledBorder(new EtchedBorder(), "Información Mecánico"));
+		
+		infor1 = new JPanel();
+		infor1.setBackground(Color.WHITE);
+		infor1.setLayout(new BoxLayout(infor1, BoxLayout.PAGE_AXIS));
+		
+		panel.add(panelInforMec);
+		panelInforMec.add(infor1, BorderLayout.EAST);
+		infor1.add(vueltasDesde);
+		infor1.add(velocidad_media);
+		infor1.add(consumo_medio);
+		infor1.add(alertaAceite);
+		infor1.add(alertaPastillas);
+		infor1.add(alertaRevision);
 		
 		this.controlVelocidad = controlVelocidad;
 		this.monitor = monitor;
@@ -336,12 +363,33 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 			velocidad.setText("Velocidad: " + String.valueOf((int) controlVelocidad.getVelocidad()) + " km/h");
 			combustible.setText("Combustible: " + df2.format(monitor.getNivelDeposito()));
 			distancia.setText("Distancia recorrida: " + df2.format(controlVelocidad.getDistancia()) + " m");
-			if(monitor.notificarAceite())
-				alertas.setText("Alerta: Es necesario un cambio de aceite.");
-			else if (monitor.notificarPastillas())
-				alertas.setText("Alerta: Es necesario un cambio de pastillas.");
-			else if (monitor.notificarRevision())
-				alertas.setText("Alerta: Es necesario realizar una revisión.");
+			velocidad_media.setText("Velocidad media: " + monitor.getVelocidadMedia());
+			consumo_medio.setText("Consumo medio: " + df2.format(monitor.getConsumoMedio()));
+			
+			
+			if(monitor.notificarAceite()) {
+				alertaAceite.setText("Alerta: Es necesario un cambio de aceite.");
+				alertaAceite.setForeground(Color.RED);
+			} else {
+				alertaAceite.setText("Alerta aceite: CORRECTO");
+				alertaAceite.setForeground(Color.BLACK);
+			}	
+			
+			if (monitor.notificarPastillas()) {
+				alertaPastillas.setText("Alerta: Es necesario un cambio de pastillas.");
+				alertaPastillas.setForeground(Color.RED);
+			} else {
+				alertaPastillas.setText("Alerta pastillas: CORRECTO");
+				alertaPastillas.setForeground(Color.BLACK);
+			}
+			
+			if (monitor.notificarRevision()) {
+				alertaRevision.setText("Alerta: Es necesario realizar una revisión.");
+				alertaRevision.setForeground(Color.RED);
+			} else {
+				alertaRevision.setText("Alerta revisión: CORRECTO");
+				alertaRevision.setForeground(Color.BLACK);
+			}
 			
 			if (controlVelocidad.getVelocidad() == 0 && !controlVelocidad.getEstadoMotor()) {
 				repostar.setEnabled(true);
@@ -355,22 +403,7 @@ public class pantallaVelocidad extends JFrame implements Runnable {
 				cambioRevision.setEnabled(false);
 			}
 		}
-	}
 	
-	public static void main(String[] args) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				ControlVelocidad controlVelocidad = new ControlVelocidad(500);
-				Monitor monitor = new Monitor(controlVelocidad, 500);
-				pantallaVelocidad display = new pantallaVelocidad(controlVelocidad, monitor);
-				display.setVisible(true);
-				
-				controlVelocidad.start();
-				monitor.start();
-				display.thr.start();
-			}
-		});
     }
 	
 }
