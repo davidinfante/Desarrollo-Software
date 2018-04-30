@@ -95,4 +95,8 @@ public class ControlVelocidad {
 		return eje;
 	}
 	
+	public boolean getEstadoMotor() {
+		return motor.getEstado();
+	}
+	
 }

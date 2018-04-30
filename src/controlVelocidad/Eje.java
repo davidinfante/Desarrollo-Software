@@ -42,7 +42,7 @@ public class Eje {
 	}
 	
 	synchronized public void calcularVueltas() {
-		vueltas_totales += (int) (distancia_recorrida / (2*Math.PI*radio));
+		vueltas_totales += (int) ((velocidad * (intervalo/3600) * 1000) / (2*Math.PI*radio));
 	}
 	
 	synchronized public int getVelocidad() {

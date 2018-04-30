@@ -68,4 +68,16 @@ public class ManejadorNotificaciones {
 		return vueltas_revision;
 	}
 	
+	public void cambioAceite() {
+		vueltas_aceite_anteriores += vueltas_aceite;
+	}
+	
+	public void cambioPastillas() {
+		vueltas_pastillas_anteriores += vueltas_pastillas;
+	}
+	
+	public void cambioRevision() {
+		vueltas_revision_anteriores += vueltas_revision;
+	}
+	
 }

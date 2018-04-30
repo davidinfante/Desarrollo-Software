@@ -55,4 +55,36 @@ public class Monitor {
 	public double getNivelDeposito() {
 		return deposito.getNivel();
 	}
+	
+	public void repostar() {
+		this.deposito.repostar();
+	}
+	
+	public double getTopeDeposito() {
+		return this.deposito.getTope();
+	}
+	
+	public double getVueltasAceite() {
+		return manejadorNotificaciones.getVueltasAceite();
+	}
+	
+	public double getVueltasPastillas() {
+		return manejadorNotificaciones.getVueltasPastillas();
+	}
+	
+	public double getVueltasRevision() {
+		return manejadorNotificaciones.getVueltasRevision();
+	}
+	
+	public void cambioAceite() {
+		manejadorNotificaciones.cambioAceite();
+	}
+	
+	public void cambioPastillas() {
+		manejadorNotificaciones.cambioPastillas();;
+	}
+	
+	public void cambioRevision() {
+		manejadorNotificaciones.cambioRevision();
+	}
 }

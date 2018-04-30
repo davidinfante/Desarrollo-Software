@@ -23,5 +23,8 @@ public class Deposito {
 		nivel = TOPE;
 	}
 	
+	public double getTope() {
+		return TOPE;
+	}
 	
 }
