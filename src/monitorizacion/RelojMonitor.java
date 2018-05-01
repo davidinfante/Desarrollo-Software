@@ -6,7 +6,7 @@ public class RelojMonitor extends Thread {
 	private int intervalo;
 	private Monitor monitor;
 	private boolean ejecutando = true;
-	private volatile double tiempo_total;
+	private double tiempo_total;
 	
 	public RelojMonitor(Monitor monitor, int intervalo) {
 		this.monitor = monitor;

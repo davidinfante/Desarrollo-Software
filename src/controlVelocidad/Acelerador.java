@@ -1,6 +1,6 @@
 package controlVelocidad;
 
-public class Acelerador {
+public final class Acelerador {
 
 	private Eje eje;
 	private final double aceleracion = 0.1;

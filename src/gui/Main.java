@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javax.swing.JApplet;
 
@@ -13,7 +13,7 @@ public class Main extends JApplet {
 		setSize(780, 400);
 		ControlVelocidad controlVelocidad = new ControlVelocidad(500);
 		Monitor monitor = new Monitor(controlVelocidad, 500);
-		pantallaVelocidad display = new pantallaVelocidad(controlVelocidad, monitor);
+		Interfaz display = new Interfaz(controlVelocidad, monitor);
 		display.setVisible(true);
 		
 		add(display);

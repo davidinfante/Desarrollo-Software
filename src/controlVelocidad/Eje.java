@@ -1,10 +1,10 @@
 package controlVelocidad;
 
-public class Eje {
+public final class Eje {
 
 	private final double radio = 0.5; //metros
 	private double vueltas;
-	private final int  MAXVUELTAS = 4;
+	private final int  MAXVUELTAS = 8;
 	private int velocidad;
 	private double distancia_total;
 	private double vueltas_totales;
@@ -38,17 +38,17 @@ public class Eje {
 		calcularVueltas();
 	}
 	
-	synchronized public void calcularVelocidad() {
+	synchronized private void calcularVelocidad() {
 		velocidad = (int) ((distancia/intervalo)*3600/1000); // km/h
 	}
 	
 	
-	synchronized public void calcularDistancia() {
+	synchronized private void calcularDistancia() {
 		distancia = vueltas*(2*Math.PI*radio);//(velocidad * (intervalo/3600) * 1000);
 		distancia_total += distancia;
 	}
 	
-	synchronized public void calcularVueltas() {
+	synchronized private void calcularVueltas() {
 		vueltas_totales += vueltas;
 	}
 	

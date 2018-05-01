@@ -9,7 +9,7 @@ public class ControlVelocidad {
 	private Automatico automatico;
 	private Motor motor;
 	private Palanca palanca;
-	private Reloj reloj;
+	private RelojControl relojControl;
 
 	
 	public ControlVelocidad(int intervalo) {
@@ -20,14 +20,14 @@ public class ControlVelocidad {
 		automatico = new Automatico(acelerador, freno, registro, eje);
 		motor = new Motor();
 		palanca = new Palanca();
-		reloj = new Reloj(this, intervalo);
+		relojControl = new RelojControl(this, intervalo);
 	}
 	
 	public void start() {
-		reloj.start();
+		relojControl.start();
 	}
 	
-	public void conducir() {
+	public void controlarEstados() {
 	
 		if(motor.getEstado()) {
 			
@@ -84,10 +84,6 @@ public class ControlVelocidad {
 	
 	public double getVueltasTotales() {
 		return eje.getVueltas();
-	}
-	
-	public Eje getEje() {
-		return eje;
 	}
 	
 	public boolean getEstadoMotor() {

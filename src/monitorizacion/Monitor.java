@@ -1,7 +1,6 @@
 package monitorizacion;
 
 import controlVelocidad.ControlVelocidad;
-import controlVelocidad.Eje;
 
 public class Monitor {
 
@@ -10,10 +9,10 @@ public class Monitor {
 	private VelocidadMedia velocidadMedia;
 	private ConsumoMedio consumoMedio;
 	private RelojMonitor relojMonitor;
-	private Eje eje;
+	private ControlVelocidad controlVelocidad;
 	
 	public Monitor(ControlVelocidad controlVelocidad, int intervalo) {
-		this.eje = controlVelocidad.getEje();
+		this.controlVelocidad = controlVelocidad;
 		deposito = new Deposito();
 		manejadorNotificaciones = new ManejadorNotificaciones();
 		velocidadMedia = new VelocidadMedia();
@@ -26,10 +25,10 @@ public class Monitor {
 	}
 	
 	public void monitorizar() {
-		deposito.actualizar(eje.getVelocidad());
-		velocidadMedia.calcular(eje.getVelocidad());
+		deposito.actualizar(controlVelocidad.getVelocidad());
+		velocidadMedia.calcular(controlVelocidad.getVelocidad());
 		consumoMedio.calcular();
-		manejadorNotificaciones.actualizar(eje.getVueltas());
+		manejadorNotificaciones.actualizar(controlVelocidad.getVueltasTotales());
 	}
 	
 	public int getVelocidadMedia() {

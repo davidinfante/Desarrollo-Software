@@ -1,6 +1,6 @@
 package controlVelocidad;
 
-public class Palanca {
+public final class Palanca {
 
 	private Estado estado;
 	

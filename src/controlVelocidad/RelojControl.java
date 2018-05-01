@@ -1,13 +1,13 @@
 package controlVelocidad;
 
-public class Reloj extends Thread {
+public class RelojControl extends Thread {
 
 	private int intervalo;
 	private ControlVelocidad controlVelocidad;
 	private boolean ejecutando = true;
-	private volatile double tiempo_total;
+	private double tiempo_total;
 	
-	public Reloj(ControlVelocidad controlVelocidad, int intervalo) {
+	public RelojControl(ControlVelocidad controlVelocidad, int intervalo) {
 		this.controlVelocidad = controlVelocidad;
 		ejecutando = true;
 		tiempo_total = 0.0;
@@ -24,7 +24,7 @@ public class Reloj extends Thread {
 				e.printStackTrace();
 				ejecutando = false;
 			}
-			controlVelocidad.conducir();
+			controlVelocidad.controlarEstados();
 		}
 	}
 	

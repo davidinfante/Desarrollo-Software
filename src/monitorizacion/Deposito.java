@@ -1,6 +1,6 @@
 package monitorizacion;
 
-public class Deposito {
+public final class Deposito {
 
 	private double nivel;
 	private final double TOPE = 500;

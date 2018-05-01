@@ -10,9 +10,9 @@ public class ManejadorNotificaciones {
 	private double vueltas_pastillas_anteriores;
 	private double vueltas_revision_anteriores;
 	
-	private final double LIMITE_ACEITE = 100; //100 5000000
-	private final double LIMITE_PASTILLAS = 150; //150 100000000
-	private final double LIMITE_REVISION = 200; //200 1000000000
+	private final double LIMITE_ACEITE = 100; //5000000
+	private final double LIMITE_PASTILLAS = 200; //100000000
+	private final double LIMITE_REVISION = 300; //1000000000
 	
 	public ManejadorNotificaciones() {
 		vueltas_aceite = 0;

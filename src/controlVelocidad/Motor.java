@@ -1,6 +1,6 @@
 package controlVelocidad;
 
-public class Motor {
+public final class Motor {
 
 	private boolean estado;
 	

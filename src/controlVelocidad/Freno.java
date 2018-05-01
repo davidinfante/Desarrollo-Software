@@ -1,6 +1,6 @@
 package controlVelocidad;
 
-public class Freno {
+public final class Freno {
 
 	private boolean frenando;
 	private Eje eje;

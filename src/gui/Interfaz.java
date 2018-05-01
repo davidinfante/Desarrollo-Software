@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.text.DecimalFormat;
 
@@ -18,7 +18,7 @@ import controlVelocidad.ControlVelocidad;
 import controlVelocidad.Estado;
 import monitorizacion.Monitor;
 
-public class pantallaVelocidad extends JPanel implements Runnable {
+public class Interfaz extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private static DecimalFormat df2 = new DecimalFormat(".##");
@@ -60,7 +60,7 @@ public class pantallaVelocidad extends JPanel implements Runnable {
 	public Thread thr;
 	
 	
-	public pantallaVelocidad(ControlVelocidad controlVelocidad, Monitor monitor) {
+	public Interfaz(ControlVelocidad controlVelocidad, Monitor monitor) {
 		setSize(780, 400);
 		setBackground(Color.WHITE);
 		
@@ -401,6 +401,12 @@ public class pantallaVelocidad extends JPanel implements Runnable {
 				cambioAceite.setEnabled(false);
 				cambioPastillas.setEnabled(false);
 				cambioRevision.setEnabled(false);
+			}
+			
+			if(monitor.getNivelDeposito() <= 0) {
+				controlVelocidad.moverPalanca(Estado.PARADO);
+				acelerar.setEnabled(false);
+				parar.setEnabled(true);
 			}
 		}
 	
