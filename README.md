@@ -1,3 +1,3 @@
 # Desarrollo-Software
 
-## Prácticas de la asignatura Desarrollo del Software en la UGR
+## Práctica 2 de la asignatura Desarrollo del Software en la UGR
